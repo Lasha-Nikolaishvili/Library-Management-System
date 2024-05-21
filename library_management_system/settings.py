@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     # Internal apps
     'library',
     'users',
-    'rest',
+    'rest_api',
+    'statistics_api',
 ]
 
 MIDDLEWARE = [
