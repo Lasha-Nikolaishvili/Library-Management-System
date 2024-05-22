@@ -12,7 +12,7 @@ class Customer(models.Model):
         related_name='customer_profile',
         verbose_name=_('User')
     )
-    mail = models.EmailField(_('Name'), unique=True)
+    email = models.EmailField(_('Name'), unique=True)
     full_name = models.CharField(_('Full Name'), max_length=255)
     personal_number = models.CharField(_('Personal Number'), max_length=11, unique=True)
     birth_date = models.DateField(_('Birth Date'))
@@ -34,6 +34,7 @@ class Author(models.Model):
     class Meta:
         verbose_name = _('Author')
         verbose_name_plural = _('Authors')
+        ordering = ['full_name']
 
 
 class Genre(models.Model):
@@ -45,6 +46,7 @@ class Genre(models.Model):
     class Meta:
         verbose_name = _('Genre')
         verbose_name_plural = _('Genres')
+        ordering = ['genre']
 
 
 class Book(models.Model):
@@ -61,6 +63,7 @@ class Book(models.Model):
     class Meta:
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
+        ordering = ['-id']
 
 
 class Checkout(models.Model):
@@ -77,6 +80,7 @@ class Checkout(models.Model):
     class Meta:
         verbose_name = _('Checkout')
         verbose_name_plural = _('Checkouts')
+        ordering = ['-id']
 
 
 class Reservation(models.Model):
@@ -91,3 +95,4 @@ class Reservation(models.Model):
     class Meta:
         verbose_name = _('Reservation')
         verbose_name_plural = _('Reservations')
+        ordering = ['-id']
