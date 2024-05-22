@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'rest_framework',
+    'drf_spectacular',
 
     # Internal apps
     'library',
@@ -138,4 +139,12 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 6,
     'PAGE_SIZE_QUERY_PARAM': 'page_size',
     'MAX_PAGE_SIZE': 24,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Library Management System',
+    'DESCRIPTION': 'Project for library management.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
