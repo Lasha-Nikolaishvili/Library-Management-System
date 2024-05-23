@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from users.models import User
 from django.utils.translation import gettext_lazy as _
-from library.utils import default_return_date
+from library.utils import default_return_date, default_expiration_date
 
 
 class Customer(models.Model):
@@ -87,7 +87,7 @@ class Reservation(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name=_('Book'))
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name=_('Customer'))
     reservation_date = models.DateTimeField(_('Reservation Date'), auto_now_add=True)
-    expiration_date = models.DateTimeField(_('Expiration Date'))
+    expiration_date = models.DateTimeField(_('Expiration Date'), default=default_expiration_date)
 
     def __str__(self):
         return f'{self.book.title} reserved by {self.customer.full_name}'

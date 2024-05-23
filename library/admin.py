@@ -2,6 +2,7 @@ from django.contrib import admin
 from library.admin_filters import GenreFilter, AuthorFilter, DatePublishedListFilter
 from library.models import Author, Book, Genre, Customer, Checkout, Reservation
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import Truncator
 
 
 admin.site.site_header = _('Library Management System')
@@ -35,10 +36,10 @@ class BookAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('title', 'image')
         }),
-        ('Authors and Genres', {
+        (_('Authors and Genres'), {
             'fields': ('authors', 'genres')
         }),
-        ('Date and Stock', {
+        (_('Date and Stock'), {
             'fields': ('date_published', 'stock')
         }),
     )
@@ -68,13 +69,13 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'email', 'personal_number')
     list_per_page = 20
     fieldsets = (
-        ('Identification', {
+        (_('Identification'), {
             'fields': ('full_name', 'personal_number', 'user')
         }),
-        ('Contact Info', {
+        (_('Contact Info'), {
              'fields': ('email', )
         }),
-        ('Other', {
+        (_('Other'), {
             'fields': ('birth_date',)
         })
     )
@@ -88,13 +89,30 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Checkout)
 class CheckoutAdmin(admin.ModelAdmin):
-    list_display = ('id', 'book', 'customer', 'checkout_date', 'return_date', 'is_returned')
-    list_display_links = ('book', )
+    list_display = (
+        'id', 'short_book_title', 'customer', 'checkout_date', 'expected_return_date', 'return_date', 'is_returned'
+    )
     list_per_page = 20
     search_fields = ('book__title', 'customer__full_name')
     list_filter = ('is_returned', )
     autocomplete_fields = ('book', 'customer')
+    readonly_fields = ('checkout_date', 'expected_return_date')
+    fieldsets = (
+        (None, {
+            'fields': ('book', 'customer')
+        }),
+        (_('Dates'), {
+            'fields': ('checkout_date', 'return_date', 'expected_return_date')
+        }),
+        (_('Status'), {
+            'fields': ('is_returned', )
+        })
+    )
     actions = ['mark_as_returned']
+
+    def short_book_title(self, obj):
+        return Truncator(obj.book.title).chars(20)
+    short_book_title.short_description = _('Book Title')
 
     def mark_as_returned(self, request, queryset):
         queryset.update(is_returned=True)
@@ -103,12 +121,24 @@ class CheckoutAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class Reservation(admin.ModelAdmin):
-    list_display = ('id', 'book', 'customer', 'reservation_date', 'expiration_date')
-    list_display_links = ('book', )
+    list_display = ('id', 'short_book_title', 'customer', 'reservation_date', 'expiration_date')
     list_per_page = 20
     search_fields = ('book__title', 'customer__full_name')
     autocomplete_fields = ('book', 'customer')
     actions = ['cancel_reservation']
+    readonly_fields = ('reservation_date', 'expiration_date', )
+    fieldsets = (
+        (None, {
+            'fields': ('book', 'customer')
+        }),
+        (_('Dates'), {
+            'fields': ('reservation_date', 'expiration_date')
+        })
+    )
+
+    def short_book_title(self, obj):
+        return Truncator(obj.book.title).chars(20)
+    short_book_title.short_description = _('Book Title')
 
     def cancel_reservation(self, request, queryset):
         queryset.delete()
