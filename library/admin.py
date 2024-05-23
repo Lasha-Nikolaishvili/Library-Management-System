@@ -1,5 +1,6 @@
 from django.contrib import admin
 from library.admin_filters import GenreFilter, AuthorFilter, DatePublishedListFilter
+from library.admin_inlines import CheckoutInline
 from library.models import Author, Book, Genre, Customer, Checkout, Reservation
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import Truncator
@@ -32,6 +33,7 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     autocomplete_fields = ('authors', 'genres')
     list_filter = (AuthorFilter, GenreFilter, DatePublishedListFilter)
+    readonly_fields = ('total_checkouts', 'currently_checked_out', 'available_stock')
     fieldsets = (
         (None, {
             'fields': ('title', 'image')
@@ -42,7 +44,11 @@ class BookAdmin(admin.ModelAdmin):
         (_('Date and Stock'), {
             'fields': ('date_published', 'stock')
         }),
+        (_('Checkouts Information'), {
+            'fields': ('total_checkouts', 'currently_checked_out', 'available_stock')
+        })
     )
+    inlines = [CheckoutInline]
     actions = ['set_stock_to_zero']
 
     def set_stock_to_zero(self, request, queryset):
@@ -60,6 +66,18 @@ class BookAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         queryset = super().get_queryset(request).prefetch_related('authors', 'genres')
         return queryset
+
+    def total_checkouts(self, obj):
+        return Checkout.objects.filter(book=obj).count()
+    total_checkouts.short_description = _('Total Checkouts')
+
+    def currently_checked_out(self, obj):
+        return Checkout.objects.filter(book=obj, is_returned=False).count()
+    currently_checked_out.short_description = _('Currently Checked Out')
+
+    def available_stock(self, obj):
+        return obj.stock - self.currently_checked_out(obj)
+    available_stock.short_description = _('Available Stock')
 
 
 @admin.register(Customer)
