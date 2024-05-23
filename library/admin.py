@@ -1,6 +1,6 @@
 from django.contrib import admin
 from library.admin_filters import GenreFilter, AuthorFilter, DatePublishedListFilter
-from library.admin_inlines import CheckoutInline
+from library.admin_inlines import CheckoutInline, ReservationInline
 from library.models import Author, Book, Genre, Customer, Checkout, Reservation
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import Truncator
@@ -48,7 +48,7 @@ class BookAdmin(admin.ModelAdmin):
             'fields': ('total_checkouts', 'currently_checked_out', 'available_stock')
         })
     )
-    inlines = [CheckoutInline]
+    inlines = [CheckoutInline, ReservationInline]
     actions = ['set_stock_to_zero']
 
     def set_stock_to_zero(self, request, queryset):
