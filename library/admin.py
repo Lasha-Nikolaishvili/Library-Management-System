@@ -30,7 +30,7 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'date_published', 'stock', 'get_authors', 'get_genres')
     list_display_links = ('title', )
     list_per_page = 20
-    search_fields = ('title',)
+    search_fields = ('title', 'authors__full_name', 'genres__genre')
     autocomplete_fields = ('authors', 'genres')
     list_filter = (AuthorFilter, GenreFilter, DatePublishedListFilter)
     readonly_fields = ('total_checkouts', 'currently_checked_out', 'available_stock')
