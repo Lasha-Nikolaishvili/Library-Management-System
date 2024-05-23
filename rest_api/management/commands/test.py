@@ -16,10 +16,10 @@ def get_book(url):
     authors = [a.get_text(strip=True) for a in div.select('.author a')]
     image = div.find('li', class_='img-item').get('data-src')
     genres = [
-        genre for genre in
-        re.sub(r'\s+', '', div.select_one('.book-format li:nth-of-type(3) span').get_text())
+        genre.strip() for genre in
+        re.sub(r'\s+', ' ', div.select_one('.book-format li:nth-of-type(3) span').get_text())
         .split(',')
-        if genre != ''
+        if genre.strip() != ''
     ]
     date_published = div.select_one('.book-format li:nth-of-type(2) span').get_text(strip=True)
 

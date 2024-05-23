@@ -12,7 +12,7 @@ class Customer(models.Model):
         related_name='customer_profile',
         verbose_name=_('User')
     )
-    email = models.EmailField(_('Name'), unique=True)
+    email = models.EmailField(_('Email'), unique=True)
     full_name = models.CharField(_('Full Name'), max_length=255)
     personal_number = models.CharField(_('Personal Number'), max_length=11, unique=True)
     birth_date = models.DateField(_('Birth Date'))
