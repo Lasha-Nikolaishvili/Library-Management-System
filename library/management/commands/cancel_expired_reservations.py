@@ -13,4 +13,4 @@ class Command(BaseCommand):
         count = expired_reservations.count()
         expired_reservations.delete()
 
-        self.stdout.write(self.style.SUCCESS(f'Successfully canceled {count} expired reservations.'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully canceled {count} expired reservation(s).'))

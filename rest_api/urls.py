@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_api.views import (
-    BookViewSet, GenreViewSet, AuthorViewSet, CheckoutViewSet, ReservationViewSet, CustomerViewSet
+    BookViewSet, GenreViewSet, AuthorViewSet, CheckoutViewSet, ReservationViewSet, CustomerViewSet, ReserveBookView
 )
 
 
@@ -16,4 +16,5 @@ router.register(r'customers', CustomerViewSet, basename='customer')
 app_name = 'rest_api'
 urlpatterns = [
     path('', include(router.urls)),
+    path('reserve-book/', ReserveBookView.as_view(), name='reserve-book'),
 ]

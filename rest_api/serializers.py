@@ -13,7 +13,7 @@ class BookListSerializer(ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'authors']
+        fields = ('id', 'title', 'authors')
 
 
 class GenreSerializer(ModelSerializer):
@@ -41,7 +41,7 @@ class CheckoutListSerializer(ModelSerializer):
 
     class Meta:
         model = Checkout
-        fields = ['id', 'book', 'customer', 'is_returned']
+        fields = ('id', 'book', 'customer', 'is_returned')
 
 
 class ReservationSerializer(ModelSerializer):
@@ -51,11 +51,18 @@ class ReservationSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class CustomerReservationSerializer(ModelSerializer):
+
+    class Meta:
+        model = Reservation
+        fields = ('book', )
+
+
 class ReservationListSerializer(ModelSerializer):
 
     class Meta:
         model = Reservation
-        fields = ['id', 'book', 'customer']
+        fields = ('id', 'book', 'customer')
 
 
 class CustomerSerializer(ModelSerializer):
@@ -69,4 +76,4 @@ class CustomerListSerializer(ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['id', 'personal_number', 'email']
+        fields = ('id', 'personal_number', 'email')
