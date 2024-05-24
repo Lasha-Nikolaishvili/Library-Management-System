@@ -54,9 +54,8 @@ class CheckoutViewSet(ModelViewSet):
         list=CheckoutListSerializer
     )
     permission_classes = [IsAdminUser]
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ('is_returned', )
-    search_fields = ('book__id', 'customer__id')
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_fields = ('book', 'customer', 'is_returned')
     ordering_fields = ('id', 'checkout_date', 'return_date', 'is_returned')
 
 
@@ -67,8 +66,8 @@ class ReservationViewSet(ModelViewSet):
         list=ReservationListSerializer
     )
     permission_classes = [IsAdminUser]
-    filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ('book__id', 'customer__id')
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    filterset_fields = ('book', 'customer')
     ordering_fields = ('id', 'reservation_date', 'expiration_date')
 
 
