@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'debug_toolbar',
     'admin_auto_filters',
+    'django_filters',
 
     # Internal apps
     'library',

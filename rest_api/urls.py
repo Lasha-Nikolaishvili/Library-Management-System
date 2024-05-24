@@ -15,5 +15,5 @@ router.register(r'customers', CustomerViewSet, basename='customer')
 
 app_name = 'rest_api'
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]

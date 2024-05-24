@@ -69,4 +69,4 @@ class CustomerListSerializer(ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['id', 'full_name', 'email']
+        fields = ['id', 'personal_number', 'email']
