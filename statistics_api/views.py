@@ -2,14 +2,14 @@ from django.db.models import Count, F, Case, When, IntegerField
 from django.utils.timezone import now
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework import status
 from datetime import timedelta
 from library.models import Book, Checkout, Customer
 
 
 class MostPopularBooksView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def list(self, request, *args, **kwargs):
         most_popular_books = (
@@ -22,7 +22,7 @@ class MostPopularBooksView(ListAPIView):
 
 
 class CheckoutsLastYearView(RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get(self, request, *args, **kwargs):
         one_year_ago = now() - timedelta(days=365)
@@ -33,7 +33,7 @@ class CheckoutsLastYearView(RetrieveAPIView):
 
 
 class MostLateReturnsBooksView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
         most_late_returns_books = (
@@ -53,7 +53,7 @@ class MostLateReturnsBooksView(ListAPIView):
 
 
 class MostLateReturnsCustomersView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
         most_late_returns_customers = (
