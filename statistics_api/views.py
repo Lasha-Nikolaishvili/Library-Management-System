@@ -1,4 +1,4 @@
-from django.db.models import Count, F
+from django.db.models import Count, F, Case, When, IntegerField
 from django.utils.timezone import now
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -39,8 +39,13 @@ class MostLateReturnsBooksView(APIView):
         most_late_returns_books = (
             Book.objects.annotate(
                 late_returns=Count(
-                    expression='checkout',
-                    filter=F('checkout__return_date') > F('checkout__expected_return_date')
+                    Case(
+                        When(
+                            checkout__return_date__gt=F('checkout__expected_return_date'),
+                            then=1
+                        ),
+                        output_field=IntegerField()
+                    )
                 )
             ).order_by('-late_returns')[:100].values('id', 'title', 'late_returns')
         )
@@ -54,8 +59,13 @@ class MostLateReturnsCustomersView(APIView):
         most_late_returns_customers = (
             Customer.objects.annotate(
                 late_returns=Count(
-                    expression='checkout',
-                    filter=F('checkout__return_date') > F('checkout__expected_return_date')
+                    Case(
+                        When(
+                            checkout__return_date__gt=F('checkout__expected_return_date'),
+                            then=1
+                        ),
+                        output_field=IntegerField()
+                    )
                 )
             ).order_by('-late_returns')[:100].values('id', 'full_name', 'late_returns'))
         return Response(most_late_returns_customers, status=status.HTTP_200_OK)

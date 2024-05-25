@@ -4,6 +4,7 @@ from statistics_api.views import (
     MostPopularBooksView, CheckoutsLastYearView, MostLateReturnsBooksView, MostLateReturnsCustomersView
 )
 
+app_name = 'statistics_api'
 urlpatterns = [
     path('most-popular-books/', MostPopularBooksView.as_view(), name='most-popular-books'),
     path('checkouts-last-year/', CheckoutsLastYearView.as_view(), name='checkouts-last-year'),
