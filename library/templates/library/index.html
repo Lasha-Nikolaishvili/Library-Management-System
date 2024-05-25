@@ -1,4 +1,8 @@
 {% extends 'library/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'library/css/index.css' %}">
+{% endblock %}
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>Library</h1>

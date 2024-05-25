@@ -1,0 +1,8 @@
+h1 {
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+    margin: 1rem;
+}

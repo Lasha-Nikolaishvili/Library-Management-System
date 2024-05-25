@@ -1,10 +1,17 @@
 {% extends 'library/base.html' %}
-{% block title %}Home{% endblock %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'library/css/auth.css' %}">
+{% endblock %}
+{% block title %}Register{% endblock %}
 {% block content %}
+    <div class="auth-form-cont">
     <h1>Register</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p>Already have an account? <a href="{% url 'library:login' %}">Login</a><p>
+            <button class="auth-form-btn" type="submit">Register</button>
+        </form>
+    </div>
 {% endblock %}

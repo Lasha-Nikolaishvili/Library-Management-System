@@ -1,0 +1,40 @@
+.auth-form-cont {
+    color: var(--text);
+    margin: 5rem auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 1rem;
+    background-color: var(--primary-100);
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+.auth-form-cont > * {
+    margin: 1rem;
+}
+
+.auth-form-cont > h1 {
+    letter-spacing: .3rem;
+}
+
+.auth-form-cont a {
+    color: var(--primary-500);
+}
+
+.auth-form-cont input {
+    font-family: inherit;
+}
+
+.auth-form-btn {
+    padding: .5rem 1rem;
+    border: None;
+    cursor: pointer;
+    border-radius: .5rem;
+    background: var(--primary-200);
+    transition: background .1s;
+    font-family: inherit;
+    font-weight: 600;
+}
+
+.auth-form-btn:hover {
+    background: var(--primary-300);
+}
