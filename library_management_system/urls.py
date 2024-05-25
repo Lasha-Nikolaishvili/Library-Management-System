@@ -25,9 +25,9 @@ urlpatterns = [
     path('rest-api/', include('rest_api.urls', namespace='rest_api')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('statistics-api/', include('statistics_api.urls', namespace='statistics_api')),
-    path('rest-api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('rest-api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('rest-api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 
