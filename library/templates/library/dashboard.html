@@ -1,6 +1,56 @@
 {% extends 'library/base.html' %}
+
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
     <h1>Dashboard</h1>
-    <a href="{% url 'library:logout' %}">Logout</a>
+
+    <div class="card user-info p-3 mb-4 rounded-3">
+        <div class="card-body">
+            <h2 class="border-bottom mb-4">User Information</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Full Name:</strong> {{ customer.full_name }}</p>
+            <p><strong>Personal Number:</strong> {{ customer.personal_number }}</p>
+            <p><strong>Birth Date:</strong> {{ customer.birth_date }}</p>
+        </div>
+    </div>
+
+    <div class="card reservations p-3 mb-4 rounded-3">
+        <div class="card-body">
+            <h2 class="border-bottom mb-4">Reservations</h2>
+            {% if reservations %}
+                <ul>
+                    {% for reservation in reservations %}
+                        <li>
+                            <strong>Book:</strong> {{ reservation.book.title }}<br>
+                            <strong>Reservation Date:</strong> {{ reservation.reservation_date }}<br>
+                            <strong>Expiration Date:</strong> {{ reservation.expiration_date }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no active reservations.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card checkouts p-3 mb-4 rounded-3">
+        <div class="card-body">
+            <h2 class="border-bottom mb-4">Checkouts</h2>
+            {% if checkouts %}
+                <ul>
+                    {% for checkout in checkouts %}
+                        <li>
+                            <strong>Book:</strong> {{ checkout.book.title }}<br>
+                            <strong>Checkout Date:</strong> {{ checkout.checkout_date }}<br>
+                            <strong>Expected Return Date:</strong> {{ checkout.expected_return_date }}<br>
+                            <strong>Return Date:</strong> {{ checkout.return_date|default:"Not Returned" }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no active checkouts.</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -2,10 +2,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import render, redirect, get_object_or_404
 from library.forms import CreateUserForm, LoginForm
-from library.models import Customer, Book
+from library.models import Customer, Book, Reservation, Checkout
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def index(request):
@@ -33,7 +34,6 @@ def top_ten_books(request):
         Book.objects
         .annotate(checkout_count=Count('checkout'))
         .order_by('-checkout_count')[:10]
-        # .values('id', 'title', 'image', 'checkout_count')
     )
     print(books)
 
@@ -47,6 +47,34 @@ def book_details(request, book_id):
 
     context = {'book': book, 'authors': authors, 'genres': genres}
     return render(request, 'library/book_details.html', context=context)
+
+
+@login_required
+def reserve_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    customer = get_object_or_404(Customer, user=request.user)
+
+    if Reservation.objects.filter(customer=customer).exists():
+        messages.error(
+            request,
+            message="You already have a reserved book. You can't reserve more than one book.",
+            extra_tags="danger"
+        )
+        return redirect('library:book_details', book_id=book_id)
+
+    if book.stock < 1:
+        messages.error(request, "This book is currently out of stock.", "danger")
+        return redirect('library:book_details', book_id=book_id)
+
+    Reservation.objects.create(
+        book=book,
+        customer=customer
+    )
+    book.stock -= 1
+    book.save()
+
+    messages.success(request, f"You have successfully reserved '{book.title}'.", "success")
+    return redirect('library:book_details', book_id=book_id)
 
 
 def register(request):
@@ -113,4 +141,16 @@ def logout(request):
 
 @login_required(login_url='library:login')
 def dashboard(request):
-    return render(request, 'library/dashboard.html')
+    user = request.user
+    customer = Customer.objects.get(user=user)
+    reservations = Reservation.objects.filter(customer=customer)
+    checkouts = Checkout.objects.filter(customer=customer)
+
+    context = {
+        'user': user,
+        'customer': customer,
+        'reservations': reservations,
+        'checkouts': checkouts,
+    }
+
+    return render(request, 'library/dashboard.html', context)

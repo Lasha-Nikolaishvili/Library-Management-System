@@ -134,10 +134,17 @@ body {
     margin-bottom: -2px;
 }
 
-/*main {*/
-/*    position: relative;*/
-/*    min-height: 100vh;*/
-/*}*/
+.messages-cont {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(-50%, 0);
+}
 
 .cart-popup {
     width: 20em;

@@ -22,7 +22,7 @@
         </p>
         <p><span class="param-title">Date Published:</span> {{ book.date_published }}</p>
         <p><span class="param-title">Stock:</span> {{ book.stock }}</p>
-        <a class="back-btn" href="{% url 'library:books_listing' %}">Home</a>
+        <a class="back-btn" href="{% url 'library:reserve_book' book.id %}">Reserve</a>
     </div>
 </div>
 {% endblock %}
