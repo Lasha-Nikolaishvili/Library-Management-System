@@ -6,11 +6,13 @@ The Library Management System is a Django-based web application designed to mana
 
 ## Features
 
+- Web scraped data of more than 1000 books
 - User registration and authentication
 - Book reservation and checkout
 - Automatic notifications for overdue books
+- Automatic cancellation of overdue reservations
 - Detailed statistics on book usage and user activity
-- Admin interface for managing books, authors, genres, and users
+- Customized Admin interface for managing books, authors, genres, and users
 - User interface for browsing books and making reservations
 
 ## Installation
@@ -37,7 +39,8 @@ The Library Management System is a Django-based web application designed to mana
 
 4. **Configure the database:**
 
-    Modify the `DATABASES` setting in `library_management_system/settings.py` to match your database configuration.
+    The project comes with a sqlite3 database by default. You can see the admin user credentials near the end of file.
+
 
 5. **Apply the migrations:**
 
@@ -45,19 +48,13 @@ The Library Management System is a Django-based web application designed to mana
     python manage.py migrate
     ```
 
-6. **Create a superuser:**
-
-    ```sh
-    python manage.py createsuperuser
-    ```
-
-7. **Collect static files:**
+6. **Collect static files:**
 
     ```sh
     python manage.py collectstatic
     ```
 
-8. **Run the development server:**
+7. **Run the development server:**
 
     ```sh
     python manage.py runserver
@@ -76,7 +73,7 @@ Users can register and log in via the following URLs:
 - Register: `http://localhost:8000/register`
 - Login: `http://localhost:8000/login`
 
-### Reserving and Checking Out Books
+### Reserving Books
 
 Users can browse available books and make reservations through the main interface. The system will check for book availability and ensure users do not reserve more than one book at a time.
 
@@ -85,10 +82,22 @@ Users can browse available books and make reservations through the main interfac
 A management command is available to send email notifications to users with overdue checkouts:
 
 ```sh
-python manage.py send_overdue_notifications
+python manage.py send_overdue_checkout_email
 ```
 
-This command can be scheduled to run periodically using a task scheduler like `cron` or a Django task scheduling package like `django-celery-beat`.
+This command can be scheduled to run periodically using a task scheduler like `cron`.
+
+
+### Rest API
+
+The application provides a REST API to interact with the library system programmatically:
+
+- List all books, authors, genres, customers, checkouts and reservations with pagination
+- Retrieve, create, update, and delete individual records
+- Search and filter records by different fields
+- Customers can reserve books
+
+Endpoints are available under the `/rest-api/` URL.
 
 ### Statistics API
 
@@ -101,43 +110,23 @@ The application provides a statistics API to generate various reports:
 
 Endpoints are available under the `/statistics/` URL.
 
-## Customization
+## Admin User Credentials
 
-### Email Settings
+- Email: admin@mail.com
+- Password: admin
 
-Configure email settings in `settings.py` to enable email notifications:
+## Technologies And Apps Used
 
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'your_smtp_server'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@example.com'
-EMAIL_HOST_PASSWORD = 'your_email_password'
-DEFAULT_FROM_EMAIL = 'your_email@example.com'
-```
+- Django
+- Django REST Framework
+- markdown
+- Swagger UI
+- Debug Toolbar
+- Admin Auto Filters
+- Django Filters
+- Bootstrap
+- Font Awesome
 
-### Static and Media Files
+## Authors
 
-Configure the `STATIC_URL` and `MEDIA_URL` settings in `settings.py` to serve static and media files correctly:
-
-```python
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'library/static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-```
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure that your code follows the project's coding standards and includes appropriate tests.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
----
-
-This README provides a comprehensive overview of the Library Management System, covering installation, usage, customization, and contribution guidelines.
+- [Lasha-Nikolaishvili](https://github.com/Lasha-Nikolaishvili)
