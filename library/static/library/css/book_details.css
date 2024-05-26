@@ -1,0 +1,57 @@
+h1 {
+    color: var(--text);
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.details-cont {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0 4rem 0;
+}
+
+.details-cont-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5rem;
+    flex: 1;
+
+    position: relative;
+}
+
+.details-cont-img {
+    width: 16rem;
+    border-radius: 1rem;
+}
+
+.book-name {
+    color: var(--primary);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 2rem;
+}
+
+.param-title {
+    font-weight: normal;
+}
+
+.back-btn {
+    background-color: var(--primary);
+    color: var(--text);
+    padding: .5rem 1.5rem;
+    border-radius: .5em;
+    cursor: pointer;
+    text-decoration: none;
+
+    position: absolute;
+    bottom: 0;
+    right: 1.5rem;
+}

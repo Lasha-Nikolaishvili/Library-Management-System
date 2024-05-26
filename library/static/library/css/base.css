@@ -128,11 +128,6 @@ body {
     background-color: var(--secondary-400);
 }
 
-body {
-    font-family: 'Kumbh Sans', sans-serif;
-    min-height: 100vh;
-}
-
 .nav-a:hover,.nav-a:focus,.nav-a:focus-visible {
     color: var(--text);
     border-bottom: 2px solid var(--primary);
@@ -214,6 +209,17 @@ body {
 .offcanvas {
     display: none;
 }
+
+footer {
+    background-color: var(--primary-300);
+    padding: 2rem 0 3rem 0;
+    text-align: center;
+}
+
+footer p {
+    color: var(--text-50);
+}
+
 
 @media (max-width: 993px) {
     .offcanvas {

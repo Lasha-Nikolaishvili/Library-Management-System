@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from django.db.models import Q, Count
+from django.shortcuts import render, redirect, get_object_or_404
 from library.forms import CreateUserForm, LoginForm
-from library.models import Customer
+from library.models import Customer, Book
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -8,6 +10,44 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'library/index.html')
+
+
+def books_listing(request):
+    # if request.GET.get('filter'):
+    #     filter_property: str = request.GET.get('filter')
+    #     books = Book.objects.filter(
+    #         Q(name__icontains=filter_property) |
+    #         Q(author__first_name__icontains=filter_property.split(' ')[0]) |
+    #         Q(author__last_name__icontains=filter_property.split(' ')[1:])
+    #     )
+    # else:
+    books = Book.objects.all()
+    paginator = Paginator(books, 8)
+    page_num = int(request.GET.get('page', 1))
+    page = paginator.get_page(page_num)
+
+    return render(request, 'library/books.html', {'page': page})
+
+
+def top_ten_books(request):
+    books = (
+        Book.objects
+        .annotate(checkout_count=Count('checkout'))
+        .order_by('-checkout_count')[:10]
+        # .values('id', 'title', 'image', 'checkout_count')
+    )
+    print(books)
+
+    return render(request, 'library/top_ten_books.html', {'books': books})
+
+
+def book_details(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    authors = book.authors.all()
+    genres = book.genres.all()
+
+    context = {'book': book, 'authors': authors, 'genres': genres}
+    return render(request, 'library/book_details.html', context=context)
 
 
 def register(request):

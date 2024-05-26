@@ -1,0 +1,28 @@
+{% extends 'library/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'library/css/book_details.css' %}">
+{% endblock %}
+{% block title %}Book Details{% endblock %}
+{% block content %}
+<h1>Book Details</h1>
+<div class="details-cont">
+    <img class="details-cont-img" src="{{ book.image }}" alt="{{ book.title }} image.">
+    <div class="details-cont-body">
+        <h2 class="book-name">{{ book.name }}</h2>
+        <p><span class="param-title">Authors:</span>
+            {% for author in authors %}
+                {{ author.full_name }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </p>
+        <p><span class="param-title">Categories:</span>
+            {% for genre in genres %}
+                {{ genre.genre }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </p>
+        <p><span class="param-title">Date Published:</span> {{ book.date_published }}</p>
+        <p><span class="param-title">Stock:</span> {{ book.stock }}</p>
+        <a class="back-btn" href="{% url 'library:books_listing' %}">Home</a>
+    </div>
+</div>
+{% endblock %}

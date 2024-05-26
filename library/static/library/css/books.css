@@ -1,0 +1,110 @@
+h1 {
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.search-form {
+    padding: 1rem;
+}
+
+.input-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar-label {
+    font-size: 1.2rem;
+}
+
+.search-bar {
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.search-form-btn {
+    padding: .5rem 1rem;
+    background-color: var(--primary);
+    color: white;
+    border-radius: .5rem;
+    margin-top: .8rem;
+}
+
+.books-cont {
+    margin: 2rem 0;
+}
+
+.books-list {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.books-list-item {
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 16rem;
+    height: auto;
+}
+
+.books-list-item-body {
+    padding: .5rem 1.5rem .5rem 1.2rem;
+    word-wrap: break-word;
+}
+
+.param-title {
+    font-weight: bold;
+}
+
+.books-list-item-body p:nth-of-type(1) {
+    color: var(--primary-600);
+    font-weight: bold;
+}
+
+.books-list-item-body p:nth-of-type(2) {
+    color: var(--text);
+}
+
+.books-list-item a img {
+    max-width: 100%;
+}
+
+.pagination-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: transparent;
+}
+
+.pagination-cont > *{
+    padding: 0 1rem;
+}
+
+.pagination-btn {
+    background-color: var(--primary);
+    color: var(--text);
+    padding: .5rem 1.5rem;
+    border-radius: .5em;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pagination-btn:disabled,
+.pagination-btn[disabled] {
+    background-color: var(--primary-700);
+    cursor: default;
+}
