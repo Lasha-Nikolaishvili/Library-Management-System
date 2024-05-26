@@ -18,26 +18,36 @@ h2 {
     padding: 1rem;
 }
 
-.input-cont {
-    display: flex;
-    flex-direction: column;
+.card {
+    width: 500px;
+    border: none;
+    border-radius: 20px;
 }
 
-.search-bar-label {
-    font-size: 1.2rem;
+.form-control {
+    border-radius: 7px;
+    border: 1.5px solid #E3E6ED;
 }
 
-.search-bar {
-    padding: .5rem 1rem;
-    border-radius: .5rem;
+input.form-control:focus {
+    box-shadow: none;
+    border: 1.5px solid #E3E6ED;
+    background-color: #F7F8FD;
+    letter-spacing: 1px;
 }
 
-.search-form-btn {
-    padding: .5rem 1rem;
-    background-color: var(--primary);
-    color: white;
-    border-radius: .5rem;
-    margin-top: .8rem;
+.btn-primary {
+    background-color: #5878FF !important;
+    border-radius: 7px;
+}
+
+.btn-primary:focus {
+    box-shadow: none;
+}
+
+.text {
+    font-size: 13px;
+    color: #9CA1A4;
 }
 
 .books-cont {
@@ -90,7 +100,7 @@ h2 {
     background-color: transparent;
 }
 
-.pagination-cont > *{
+.pagination-cont > * {
     padding: 0 1rem;
 }
 
