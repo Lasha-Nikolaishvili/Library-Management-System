@@ -99,11 +99,6 @@ class CustomerAdmin(admin.ModelAdmin):
     )
     actions = ['send_email']
 
-    def send_email(self, request, queryset):
-        for customer in queryset:
-            print(f'Email sent to {customer.email}')
-    send_email.short_description = _('Send email')
-
 
 @admin.register(Checkout)
 class CheckoutAdmin(admin.ModelAdmin):
@@ -157,7 +152,3 @@ class Reservation(admin.ModelAdmin):
     def short_book_title(self, obj):
         return Truncator(obj.book.title).chars(20)
     short_book_title.short_description = _('Book Title')
-
-    def cancel_reservation(self, request, queryset):
-        queryset.delete()
-    cancel_reservation.short_description = _('Cancel reservation')

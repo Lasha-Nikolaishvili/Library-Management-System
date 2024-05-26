@@ -46,6 +46,13 @@ class ReserveBookView(CreateAPIView):
         except Customer.DoesNotExist:
             return Response({'status': 'customer_not_found'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Checks if the customer already has an active reservation
+        if Reservation.objects.filter(customer=customer).exists():
+            return Response(
+                data={'status': 'active_reservation_exists'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         if book.stock > 0:
             reservation = Reservation.objects.create(
                 book=book,
