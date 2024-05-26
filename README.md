@@ -39,7 +39,21 @@ The Library Management System is a Django-based web application designed to mana
 
 4. **Configure the database:**
 
-    The project comes with a sqlite3 database by default. You can see the admin user credentials near the end of file.
+   The project comes with a sqlite3 database by default. You can see the admin user credentials near the end of file.
+
+5. **Configure the email server**
+    
+   The application sends email notifications for overdue books. You can configure the email server settings in the `.env` file:
+   
+   ```sh
+   EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+   EMAIL_HOST = 'smtp.gmail.com'
+   EMAIL_PORT = 587
+   EMAIL_USE_TLS = True
+   EMAIL_HOST_USER = 'tbclibrarysystem1@gmail.com'
+   EMAIL_HOST_PASSWORD = 'bhvlqumvmkbjllzd'
+   DEFAULT_FROM_EMAIL = 'tbclibrarysystem1@gmail.com'
+   ```
 
 
 5. **Apply the migrations:**
@@ -124,6 +138,7 @@ Endpoints are available under the `/statistics/` URL.
 - Debug Toolbar
 - Admin Auto Filters
 - Django Filters
+- Python Decouple
 - Bootstrap
 - Font Awesome
 
