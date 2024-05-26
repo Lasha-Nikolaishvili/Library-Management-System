@@ -13,15 +13,14 @@ def index(request):
 
 
 def books_listing(request):
-    # if request.GET.get('filter'):
-    #     filter_property: str = request.GET.get('filter')
-    #     books = Book.objects.filter(
-    #         Q(name__icontains=filter_property) |
-    #         Q(author__first_name__icontains=filter_property.split(' ')[0]) |
-    #         Q(author__last_name__icontains=filter_property.split(' ')[1:])
-    #     )
-    # else:
-    books = Book.objects.all()
+    if request.GET.get('filter'):
+        filter_property: str = request.GET.get('filter')
+        books = Book.objects.filter(
+            Q(title__icontains=filter_property) |
+            Q(authors__full_name__icontains=filter_property)
+        ).distinct()
+    else:
+        books = Book.objects.all()
     paginator = Paginator(books, 8)
     page_num = int(request.GET.get('page', 1))
     page = paginator.get_page(page_num)

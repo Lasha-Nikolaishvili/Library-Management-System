@@ -2,14 +2,14 @@ from django.db.models import Count, F, Case, When, IntegerField
 from django.utils.timezone import now
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.permissions import IsAdminUser
 from rest_framework import status
 from datetime import timedelta
 from library.models import Book, Checkout, Customer
 
 
 class MostPopularBooksView(ListAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
     def list(self, request, *args, **kwargs):
         most_popular_books = (
