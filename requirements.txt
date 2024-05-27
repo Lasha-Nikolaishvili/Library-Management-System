@@ -21,7 +21,7 @@ python-decouple==3.8
 python-slugify==8.0.4
 PyYAML==6.0.1
 referencing==0.35.1
-requests==2.31.0
+requests>=2.32.0
 rpds-py==0.18.1
 soupsieve==2.5
 sqlparse==0.5.0
