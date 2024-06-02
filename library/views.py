@@ -35,7 +35,6 @@ def top_ten_books(request):
         .annotate(checkout_count=Count('checkout'))
         .order_by('-checkout_count')[:10]
     )
-    print(books)
 
     return render(request, 'library/top_ten_books.html', {'books': books})
 
@@ -71,7 +70,7 @@ def reserve_book(request, book_id):
         customer=customer
     )
     book.stock -= 1
-    book.save()
+    book.save(update_fields=('stock',))
 
     messages.success(request, f"You have successfully reserved '{book.title}'.", "success")
     return redirect('library:book_details', book_id=book_id)

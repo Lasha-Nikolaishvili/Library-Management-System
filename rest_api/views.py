@@ -59,7 +59,7 @@ class ReserveBookView(CreateAPIView):
                 customer=customer
             )
             book.stock -= 1
-            book.save()
+            book.save(update_fields=('stock',))
 
             headers = self.get_success_headers(serializer.data)
             return Response(
