@@ -1,6 +1,6 @@
 from django.contrib import admin
-from library.admin_filters import GenreFilter, AuthorFilter, DatePublishedListFilter
-from library.admin_inlines import CheckoutInline, ReservationInline
+from library.helper_classes.admin_filters import GenreFilter, AuthorFilter, DatePublishedListFilter
+from library.helper_classes.admin_inlines import CheckoutInline, ReservationInline
 from library.models import Author, Book, Genre, Customer, Checkout, Reservation
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import Truncator
@@ -97,7 +97,6 @@ class CustomerAdmin(admin.ModelAdmin):
             'fields': ('birth_date',)
         })
     )
-    actions = ['send_email']
 
 
 @admin.register(Checkout)

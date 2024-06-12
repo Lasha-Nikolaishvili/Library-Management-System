@@ -175,6 +175,6 @@ SPECTACULAR_SETTINGS = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'library.backends.EmailBackend',
+    'library.helper_classes.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]

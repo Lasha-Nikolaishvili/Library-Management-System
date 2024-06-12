@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import render, redirect, get_object_or_404
-from library.forms import CreateUserForm, LoginForm
+from library.helper_classes.forms import CreateUserForm, LoginForm
 from library.models import Customer, Book, Reservation, Checkout
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
